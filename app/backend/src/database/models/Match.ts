@@ -62,4 +62,5 @@ Match.init({
   timestamps: false,
 });
 
-Match.belongsTo(Club, { foreignKey: 'homeTeam', as: 'clubs' });
+Match.belongsTo(Club, { foreignKey: 'homeTeam', as: 'clubs', constraints: false });
+Club.hasMany(Match, { foreignKey: 'id', as: 'matchs', constraints: false });
