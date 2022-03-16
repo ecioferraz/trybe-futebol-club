@@ -1,10 +1,11 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
+import Match from './Match';
 
 export default class Club extends Model {
-  public id!: number;
+  public id?: number;
 
-  public clubName!: string;
+  public clubName: string;
 }
 
 Club.init({
@@ -21,7 +22,8 @@ Club.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'Club',
-  tableName: 'clubs',
+  modelName: 'clubs',
   timestamps: false,
 });
+
+Club.hasMany(Match, { foreignKey: 'id', as: 'matchs', constraints: false });

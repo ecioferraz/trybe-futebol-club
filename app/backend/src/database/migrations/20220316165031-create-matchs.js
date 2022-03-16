@@ -9,31 +9,31 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       home_team: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Clubs',
+          model: 'clubs',
           key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
       home_team_goals: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      away_teams: {
-        type: Sequelize.NUMBER,
+      away_team: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Clubs',
+          model: 'clubs',
           key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
       away_team_goals: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       in_progress: {
