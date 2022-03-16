@@ -3,8 +3,6 @@ import db from '.';
 import Club from './Club';
 
 export default class Match extends Model {
-  public id!: number;
-
   public homeTeam!: number;
 
   public homeTeamGoals!: number;
@@ -17,12 +15,6 @@ export default class Match extends Model {
 }
 
 Match.init({
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-  },
   homeTeam: {
     type: DataTypes.INTEGER,
     allowNull: false,
