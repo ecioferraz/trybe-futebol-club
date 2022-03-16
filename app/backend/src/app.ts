@@ -7,6 +7,7 @@ class App {
   constructor() {
     // ...
     this.config();
+    this.app = express();
     // ...
   }
 
@@ -23,8 +24,8 @@ class App {
   }
 
   // ...
-  public start(PORT: string | number):void {
-    // ...
+  public start(PORT: string | number): void {
+    this.app.listen(PORT, () => console.log(`App listening at port ${PORT}!`));
   }
 }
 
