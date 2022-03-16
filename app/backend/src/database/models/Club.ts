@@ -27,4 +27,4 @@ Club.init({
   timestamps: false,
 });
 
-Club.hasMany(Match, { foreignKey: 'id', as: 'matchs' });
+Club.hasMany(Match, { foreignKey: 'id', as: 'matchs', constraints: false });
