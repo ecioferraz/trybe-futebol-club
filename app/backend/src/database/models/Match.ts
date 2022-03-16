@@ -18,10 +18,7 @@ Match.init({
   homeTeam: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'Clubs',
-      key: 'id',
-    },
+    references: { model: 'Clubs', key: 'id' },
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   },
@@ -32,10 +29,7 @@ Match.init({
   awayTeam: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'Clubs',
-      key: 'id',
-    },
+    references: { model: 'Clubs', key: 'id' },
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   },
