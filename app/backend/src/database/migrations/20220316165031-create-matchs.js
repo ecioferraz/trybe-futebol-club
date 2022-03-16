@@ -9,28 +9,37 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       home_team: {
-        type: Sequelize.NUMBER
+        type: Sequelize.NUMBER,
+        allowNull: false,
+        references: {
+          model: 'Clubs',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       home_team_goals: {
-        type: Sequelize.NUMBER
+        type: Sequelize.NUMBER,
+        allowNull: false,
       },
       away_teams: {
-        type: Sequelize.NUMBER
+        type: Sequelize.NUMBER,
+        allowNull: false,
+        references: {
+          model: 'Clubs',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       away_team_goals: {
-        type: Sequelize.NUMBER
+        type: Sequelize.NUMBER,
+        allowNull: false,
       },
       in_progress: {
-        type: Sequelize.BOOLEAN
-      },
-      createdAt: {
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        type: Sequelize.DATE
       },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
     });
   },
   down: async (queryInterface, Sequelize) => {
