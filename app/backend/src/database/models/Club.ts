@@ -8,6 +8,12 @@ export default class Club extends Model {
 }
 
 Club.init({
+  id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+  },
   clubName: {
     type: DataTypes.STRING,
     allowNull: false,
