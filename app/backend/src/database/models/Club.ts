@@ -3,9 +3,9 @@ import db from '.';
 import Match from './Match';
 
 export default class Club extends Model {
-  public id?: number;
+  public id!: number;
 
-  public clubName: string;
+  public clubName!: string;
 }
 
 Club.init({

@@ -1,19 +1,18 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
-// import Club from './Club';
 
 export default class Match extends Model {
-  public id?: number;
+  public id!: number;
 
-  public homeTeam: number;
+  public homeTeam!: number;
 
-  public homeTeamGoals: number;
+  public homeTeamGoals!: number;
 
-  public awayTeam: number;
+  public awayTeam!: number;
 
-  public awayTeamGoals: number;
+  public awayTeamGoals!: number;
 
-  public inProgress: boolean;
+  public inProgress!: boolean;
 }
 
 Match.init({
@@ -54,5 +53,3 @@ Match.init({
   modelName: 'matchs',
   timestamps: false,
 });
-
-// Match.belongsTo(Club, { foreignKey: 'homeTeam', as: 'clubs', constraints: false });
