@@ -1,15 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { IError } from '../interfaces';
 
-export default class MidError {
-  private errorCode: number;
+const midError = (err: IError, _req: Request, res: Response, _next: NextFunction) => {
+  const status = err.code || 500;
 
-  public handleError(err: IError, _req: Request, res: Response, _next: NextFunction) {
-    this.errorCode = err.code;
+  const error = err.error || 'Internal server error';
+  res.status(status).json({ error });
+};
 
-    const status = err.code || 500;
-
-    const error = err.error || 'Internal server error';
-    res.status(status).json({ error });
-  }
-}
+export default midError;
