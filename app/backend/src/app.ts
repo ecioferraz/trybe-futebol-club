@@ -1,12 +1,18 @@
 import * as express from 'express';
+import MidError from './database/middlewares/error';
+import CommonRoutesConfig from './database/routes/common.routes.config';
+import LoginRoutes from './database/routes/loginRoutes';
 
 class App {
   public app: express.Express;
+
+  public routes: Array<CommonRoutesConfig> = [];
   // ...
 
   constructor() {
     // ...
     this.app = express();
+    this.app.use(express.json());
     this.config();
     // ...
   }
@@ -25,6 +31,11 @@ class App {
 
   // ...
   public start(PORT: string | number): void {
+    this.routes
+      .push(new LoginRoutes(this.app));
+
+    this.app.use(new MidError().handleError);
+
     this.app.listen(PORT, () => console.log(`App listening at port ${PORT}!`));
   }
 }
