@@ -11,8 +11,7 @@ export default class LoginRoutes extends CommonRoutesConfig {
 
   configureRoutes(): Application {
     this.app.route('/login')
-      .get(/* new controller().getAll */)
-      .post(validateLogin, LoginController.login/* middleware, new controller.push() */);
+      .post(validateLogin, LoginController.login);
 
     return this.app;
   }

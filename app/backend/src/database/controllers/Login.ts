@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { StatusCodes } from 'http-status-codes';
+import { StatusCode } from '../interfaces';
 import ILogin from '../interfaces/Login';
 import LoginService from '../services/Login';
 
@@ -11,7 +11,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     if (user.error) return next(user);
 
-    return res.status(StatusCodes.OK).json(user);
+    return res.status(StatusCode.OK).json(user);
   } catch (error) {
     console.log(error);
     next(error);

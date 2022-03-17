@@ -12,7 +12,6 @@ class App {
   constructor() {
     // ...
     this.app = express();
-    this.app.use(express.json());
     this.config();
     // ...
   }
@@ -31,6 +30,7 @@ class App {
 
   // ...
   public start(PORT: string | number): void {
+    this.app.use(express.json());
     this.routes
       .push(new LoginRoutes(this.app));
 
