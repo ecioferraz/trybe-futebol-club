@@ -1,8 +1,10 @@
 import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
 import { StatusCode } from '../interfaces';
-import { createToken } from '../auth/jwt';
+import { createToken, jwtSecret } from '../auth/jwt';
 import ILogin from '../interfaces/Login';
 import User from '../models/User';
+import IVerified from '../interfaces/User';
 
 const login = async ({ email, password }: ILogin) => {
   const foundUser = await User.findOne({ where: { email } });
@@ -25,6 +27,13 @@ const login = async ({ email, password }: ILogin) => {
   return { user, token };
 };
 
+const getRole = async (token: string) => {
+  const { role } = jwt.verify(token, jwtSecret) as IVerified;
+
+  return role;
+};
+
 export default {
   login,
+  getRole,
 };

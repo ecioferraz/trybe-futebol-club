@@ -1,4 +1,4 @@
-export default interface IUser {
+export default interface IVerified {
   id: number,
   username: string,
   role: string,

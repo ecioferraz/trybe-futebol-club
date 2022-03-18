@@ -20,7 +20,9 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
 const getRole = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const role = req.body;
+    const token = req.headers.authorization as string;
+
+    const role = await LoginService.getRole(token);
 
     return res.status(StatusCode.OK).json(role);
   } catch (error) {

@@ -13,9 +13,7 @@ export default class LoginRoutes extends CommonRoutesConfig {
   configureRoutes(): Application {
     this.app.post('/login', validateLogin, LoginController.login);
 
-    this.app.use(authToken);
-
-    this.app.get('/login/validate', LoginController.getRole);
+    this.app.get('/login/validate', authToken, LoginController.getRole);
 
     return this.app;
   }
