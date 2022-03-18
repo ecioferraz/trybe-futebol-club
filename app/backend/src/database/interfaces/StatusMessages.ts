@@ -9,5 +9,5 @@ export enum StatusCode {
 
 export interface IError {
   code: number,
-  error: string,
+  message: string,
 }

@@ -5,20 +5,22 @@ import ILogin from '../interfaces/Login';
 import User from '../models/User';
 
 const login = async ({ email, password }: ILogin) => {
-  const user = await User.findOne({ where: { email } });
+  const foundUser = await User.findOne({ where: { email } });
 
-  if (!user) return { code: StatusCode.UNAUTHORIZED, error: 'Email is not invalid' };
+  if (!foundUser) return { code: StatusCode.UNAUTHORIZED, message: 'Incorrect email or password' };
 
-  const isNotValid = bcrypt.compareSync(password, user.password);
+  const isValid = bcrypt.compareSync(password, foundUser.password);
 
-  if (isNotValid) return { code: StatusCode.UNAUTHORIZED, error: 'Password is not valid' };
+  if (!isValid) return { code: StatusCode.UNAUTHORIZED, message: 'Incorrect email or password' };
 
-  const token = createToken({
-    id: user.id,
-    username: user.username,
-    role: user.role,
+  const user = {
+    id: foundUser.id,
+    username: foundUser.username,
+    role: foundUser.role,
     email,
-  });
+  };
+
+  const token = createToken(user);
 
   return { user, token };
 };

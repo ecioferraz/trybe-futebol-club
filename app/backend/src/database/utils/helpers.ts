@@ -1,4 +1,4 @@
-export const blank = (value: string | number | number[]) => !value && value !== 0;
+export const blank = (value: string) => !value;
 
 // export const checkType = (value: string | number, type: string) => typeof value !== type;
 

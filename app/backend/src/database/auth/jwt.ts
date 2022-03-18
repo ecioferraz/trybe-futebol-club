@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { readFileSync } from 'fs';
 import * as jwt from 'jsonwebtoken';
 import { StatusCode } from '../interfaces';
+import IUser from '../interfaces/User';
 
 const jwtSecret = readFileSync('jwt.evaluation.key', 'utf-8');
 
@@ -16,10 +17,9 @@ const authToken = (req: Request, res: Response, next: NextFunction) => {
       return res.status(StatusCode.UNAUTHORIZED).json({ error: 'Token not found' });
     }
 
-    // const verified = jwt.verify(authorization, 'jwtsecret');
-    // const { id } = verified as User;
+    const { role } = jwt.verify(authorization, jwtSecret) as IUser;
 
-    // req.body.userId = id;
+    req.body = role;
 
     return next();
   } catch (_) {

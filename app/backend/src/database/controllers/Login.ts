@@ -9,7 +9,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     const user = await LoginService.login(userInfo);
 
-    if (user.error) return next(user);
+    if (user.message) return next(user);
 
     return res.status(StatusCode.OK).json(user);
   } catch (error) {
@@ -18,6 +18,18 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getRole = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const role = req.body;
+
+    return res.status(StatusCode.OK).json(role);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 export default {
   login,
+  getRole,
 };

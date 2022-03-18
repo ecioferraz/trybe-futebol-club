@@ -1,15 +1,11 @@
 import { StatusCode, IError } from '../interfaces';
-import { blank, lengthIsLessThan } from './helpers';
+import { blank } from './helpers';
 
 export default (password: string): IError | boolean => {
   switch (true) {
     case blank(password): return {
-      code: StatusCode.BAD_REQUEST,
-      error: 'Password is required',
-    };
-    case lengthIsLessThan(password, 6): return {
-      code: StatusCode.UNPROCESSABLE_ENTITY,
-      error: 'Password must be 6 characters or longer',
+      code: StatusCode.UNAUTHORIZED,
+      message: 'All fields must be filled',
     };
     default: return false;
   }
