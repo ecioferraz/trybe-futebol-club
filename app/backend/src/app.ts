@@ -1,7 +1,10 @@
 import * as express from 'express';
+// import { authToken } from './database/auth/jwt';
 import midError from './database/middlewares/error';
+import ClubsRoutes from './database/routes/clubsRoutes';
 import CommonRoutesConfig from './database/routes/common.routes.config';
 import LoginRoutes from './database/routes/loginRoutes';
+import MatchsRoutes from './database/routes/matchsRoutes';
 
 class App {
   public app: express.Express;
@@ -33,6 +36,12 @@ class App {
     this.app.use(express.json());
     this.routes
       .push(new LoginRoutes(this.app));
+
+    // this.app.use(authToken);
+
+    this.routes
+      .concat(new ClubsRoutes(this.app))
+      .concat(new MatchsRoutes(this.app));
 
     this.app.use(midError);
 

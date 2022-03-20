@@ -30,7 +30,7 @@ export default class LoginService {
     return { user, token };
   }
 
-  public static getRole(token: string) {
+  public static getRole(token: string): string {
     const { role } = jwt.verify(token, jwtSecret) as IVerified;
 
     return role;
