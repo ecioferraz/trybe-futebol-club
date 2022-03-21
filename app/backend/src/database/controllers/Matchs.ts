@@ -16,6 +16,29 @@ export default class MatchsController {
     }
   }
 
+  public static async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const match = await MatchsService.create(req.body);
+
+      return res.status(StatusCode.CREATED).json(match);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  public static async finishMatch(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      await MatchsService.finishMatch(+id);
+
+      return res.status(StatusCode.OK).json({ message: 'Finish' });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
   // public static async getById(req: Request, res: Response, next: NextFunction) {
   //   try {
   //     const { id } = req.params;

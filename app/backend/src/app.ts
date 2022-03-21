@@ -1,5 +1,5 @@
 import * as express from 'express';
-// import { authToken } from './database/auth/jwt';
+import * as cors from 'cors';
 import midError from './database/middlewares/error';
 import ClubsRoutes from './database/routes/clubsRoutes';
 import CommonRoutesConfig from './database/routes/common.routes.config';
@@ -22,24 +22,21 @@ class App {
   private config():void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT');
+      res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
 
     this.app.use(accessControl);
+    this.app.use(express.json());
+    this.app.use(cors());
     // ...
   }
 
   // ...
   public start(PORT: string | number): void {
-    this.app.use(express.json());
     this.routes
-      .push(new LoginRoutes(this.app));
-
-    // this.app.use(authToken);
-
-    this.routes
+      .concat(new LoginRoutes(this.app))
       .concat(new ClubsRoutes(this.app))
       .concat(new MatchsRoutes(this.app));
 

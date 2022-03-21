@@ -9,9 +9,10 @@ export default class MatchsRoutes extends CommonRoutesConfig {
   }
 
   configureRoutes(): Application {
-    this.app.get('/matchs', MatchsController.getAll);
-
-    // this.app.get('/matchs/:id', MatchsController.getById);
+    this.app
+      .get('/matchs', MatchsController.getAll)
+      .post('/matchs', MatchsController.create)
+      .patch('/matchs/:id/finish', MatchsController.finishMatch);
 
     return this.app;
   }
