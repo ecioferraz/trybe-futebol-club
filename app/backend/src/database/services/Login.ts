@@ -4,7 +4,7 @@ import { StatusCode } from '../interfaces';
 import { createToken, jwtSecret } from '../auth/jwt';
 import ILogin from '../interfaces/Login';
 import User from '../models/User';
-import IVerified from '../interfaces/User';
+import IVerified from '../interfaces/Verified';
 
 export default class LoginService {
   public static async login({ email, password }: ILogin) {

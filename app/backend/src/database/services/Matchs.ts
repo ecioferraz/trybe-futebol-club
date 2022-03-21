@@ -1,5 +1,5 @@
 // import { IError, StatusCode } from '../interfaces';
-import { IError, IMatch, StatusCode } from '../interfaces';
+import { IMatch, StatusCode } from '../interfaces';
 import Club from '../models/Club';
 import Match from '../models/Match';
 
@@ -17,7 +17,7 @@ export default class MatchsService {
     where });
   }
 
-  public static async create(match: IMatch): Promise<IMatch | IError> {
+  public static async create(match: IMatch) {
     console.log(match.awayTeam, match.homeTeam);
     if (match.awayTeam === match.homeTeam) {
       return {
@@ -32,9 +32,9 @@ export default class MatchsService {
       return { code: StatusCode.UNAUTHORIZED, message: 'There is no team with such id!' };
     }
 
-    const createdMatch = await Match.create(match);
+    const { id } = await Match.create(match);
 
-    return createdMatch;
+    return { id, ...match };
   }
 
   public static async finishMatch(id: number): Promise<void> {

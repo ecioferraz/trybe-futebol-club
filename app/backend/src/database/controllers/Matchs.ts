@@ -20,6 +20,8 @@ export default class MatchsController {
     try {
       const match = await MatchsService.create(req.body);
 
+      if (match.message) return next(match);
+
       return res.status(StatusCode.CREATED).json(match);
     } catch (error) {
       console.log(error);
