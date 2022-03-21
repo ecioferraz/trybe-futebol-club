@@ -3,7 +3,6 @@ import { ILogin } from '../interfaces';
 import { validateEmail, validatePassword } from '../utils';
 
 export default (req: Request, _res: Response, next: NextFunction) => {
-  console.log('>>>>>> validateLogin in');
   const { email, password }: ILogin = req.body;
 
   const validEmail = validateEmail(email);

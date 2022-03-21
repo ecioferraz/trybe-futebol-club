@@ -16,6 +16,13 @@ class App {
     // ...
     this.app = express();
     this.config();
+
+    this.routes
+      .concat(new LoginRoutes(this.app))
+      .concat(new ClubsRoutes(this.app))
+      .concat(new MatchsRoutes(this.app));
+
+    this.app.use(midError);
     // ...
   }
 
@@ -35,13 +42,6 @@ class App {
 
   // ...
   public start(PORT: string | number): void {
-    this.routes
-      .concat(new LoginRoutes(this.app))
-      .concat(new ClubsRoutes(this.app))
-      .concat(new MatchsRoutes(this.app));
-
-    this.app.use(midError);
-
     this.app.listen(PORT, () => console.log(`App listening at port ${PORT}!`));
   }
 }
