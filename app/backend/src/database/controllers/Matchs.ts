@@ -41,6 +41,18 @@ export default class MatchsController {
     }
   }
 
+  public static async updateMatch(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const match = await MatchsService.updateMatch(+id, req.body);
+
+      return res.status(StatusCode.OK).json(match);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
   // public static async getById(req: Request, res: Response, next: NextFunction) {
   //   try {
   //     const { id } = req.params;

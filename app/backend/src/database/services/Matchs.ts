@@ -50,6 +50,17 @@ export default class MatchsService {
     return false;
   }
 
+  public static async updateMatch(
+    id: number,
+    { homeTeamGoals, awayTeamGoals }: IMatch,
+  ) {
+    await Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+
+    const updated = await Match.findByPk(id);
+    console.log(updated);
+    return updated;
+  }
+
   // public static async getById(id: number): Promise<Club | IError> {
   //   const club = await Club.findByPk(id);
 

@@ -12,6 +12,7 @@ export default class MatchsRoutes extends CommonRoutesConfig {
     this.app
       .get('/matchs', MatchsController.getAll)
       .post('/matchs', MatchsController.create)
+      .patch('/matchs/:id', MatchsController.updateMatch)
       .patch('/matchs/:id/finish', MatchsController.finishMatch);
 
     return this.app;
