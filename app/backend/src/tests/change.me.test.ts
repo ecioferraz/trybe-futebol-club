@@ -15,21 +15,15 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('/login', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
-
    let chaiHttpResponse: Response;
 
    before(async () => {
      sinon
-       .stub(User, "findOne")
+       .stub(User, 'findOne')
        .resolves(loginMocks.modelResponse as User);
    });
  
-   after(() => {
-     sinon.restore();
-   });
+   after(() => sinon.restore());
  
    it('Checks if email is valid', async () => {
      const { email } = loginMocks.invalidLogin;
@@ -75,31 +69,50 @@ describe('/login', () => {
 });
 
 describe('/clubs', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
-
    let chaiHttpResponse: Response;
 
-   before(async () => {
-     sinon
-       .stub(Club, "findAll")
-       .resolves(clubMocks.getAll as Club[]);
-   });
- 
-   after(()=>{
-     (Club.findAll as sinon.SinonStub).restore();
-   })
- 
-   it('checks Club.getAll() status', async () => {
-     chaiHttpResponse = await chai
+   describe('ClubsService.getAll', () => {
+     before(async () => {
+       sinon
+         .stub(Club, 'findAll')
+         .resolves(clubMocks.getAll as Club[]);
+     });
+   
+     after(()=> sinon.restore());
+   
+     it('Should return status 200', async () => {
+       chaiHttpResponse = await chai
+          .request(app)
+          .get('/clubs');
+  
+       expect(chaiHttpResponse).to.have.status(200);
+     });
+
+     it('Should return the correct list of all teams', async () => {
+       chaiHttpResponse = await chai
         .request(app)
         .get('/clubs');
 
-     expect(chaiHttpResponse).to.have.status(200);
+        expect(chaiHttpResponse.body).to.have.property('id');
+        expect(chaiHttpResponse.body).to.have.property('clubName');
+     });
    });
 
-  // it('Seu sub-teste', () => {
-  //   expect(false).to.be.eq(true);
-  // });
+  //  describe('ClubsService.getById', () => {
+  //    before(async () => {
+  //      sinon
+  //       .stub(Club, 'findByPk')
+  //       .resolves({ id: 5, clubName: 'Cruzeiro' } as Club);
+  //    });
+
+  //    after(() => sinon.restore())
+
+  //    it('Should return the correct team', async () => {
+  //      chaiHttpResponse = await chai
+  //       .request(app)
+  //       .get('/clubs/5');
+
+  //       expect(chaiHttpResponse.body).to.be.eq(clubMocks);
+  //    });
+  //  });
 });
