@@ -3,9 +3,11 @@ import { StatusCode } from '../interfaces';
 import MatchsService from '../services/Matchs';
 
 export default class MatchsController {
-  public static async getAll(_req: Request, res: Response, next: NextFunction) {
+  public static async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const matchs = await MatchsService.getAll();
+      const query = req.query.inProgress as string;
+
+      const matchs = await MatchsService.getAll(query);
 
       return res.status(StatusCode.OK).json(matchs);
     } catch (error) {
