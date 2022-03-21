@@ -60,12 +60,4 @@ export default class MatchsService {
     console.log(updated);
     return updated;
   }
-
-  // public static async getById(id: number): Promise<Club | IError> {
-  //   const club = await Club.findByPk(id);
-
-  //   if (!club) return { code: StatusCode.NOT_FOUND, message: 'Club not found' };
-
-  //   return club;
-  // }
 }
