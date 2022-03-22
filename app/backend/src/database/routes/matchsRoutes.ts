@@ -4,7 +4,7 @@ import CommonRoutesConfig from './common.routes.config';
 
 export default class MatchsRoutes extends CommonRoutesConfig {
   constructor(app: Application) {
-    super(app, 'MatchsRoutes');
+    super(app);
     this.configureRoutes();
   }
 

@@ -6,7 +6,7 @@ import { authToken } from '../auth/jwt';
 
 export default class LoginRoutes extends CommonRoutesConfig {
   constructor(app: Application) {
-    super(app, 'LoginRoutes');
+    super(app);
     this.configureRoutes();
   }
 

@@ -4,7 +4,7 @@ import CommonRoutesConfig from './common.routes.config';
 
 export default class LeaderboardsRoutes extends CommonRoutesConfig {
   constructor(app: Application) {
-    super(app, 'LeaderboardsRoutes');
+    super(app);
     this.configureRoutes();
   }
 

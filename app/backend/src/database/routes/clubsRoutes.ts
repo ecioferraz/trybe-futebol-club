@@ -4,7 +4,7 @@ import CommonRoutesConfig from './common.routes.config';
 
 export default class ClubsRoutes extends CommonRoutesConfig {
   constructor(app: Application) {
-    super(app, 'ClubsRoutes');
+    super(app);
     this.configureRoutes();
   }
 

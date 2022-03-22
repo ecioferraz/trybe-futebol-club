@@ -28,5 +28,26 @@ export const matchsMocks = {
         clubName: 'Santos'
       }
     },
-  ]
+    {
+      id: 3,
+      homeTeam: 4,
+      homeTeamGoals: 3,
+      awayTeam: 11,
+      awayTeamGoals: 0,
+      inProgress: false,
+      homeClub: {
+        clubName: 'Corinthians'
+      },
+      awayClub: {
+        clubName: 'Napoli-SC'
+      }
+    },
+  ],
+  newMatch: {
+    homeTeam: 16,
+    awayTeam: 8,
+    homeTeamGoals: 2,
+    awayTeamGoals: 2,
+    inProgress: true,
+  }
 }
