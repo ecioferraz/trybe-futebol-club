@@ -18,7 +18,6 @@ export default class MatchsService {
   }
 
   public static async create(match: IMatch) {
-    console.log(match.awayTeam, match.homeTeam);
     if (match.awayTeam === match.homeTeam) {
       return {
         code: StatusCode.UNAUTHORIZED,
