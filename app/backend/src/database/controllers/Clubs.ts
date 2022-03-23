@@ -9,7 +9,6 @@ export default class ClubsController {
 
       return res.status(StatusCode.OK).json(clubs);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -21,7 +20,6 @@ export default class ClubsController {
 
       return res.status(StatusCode.OK).json(club);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
