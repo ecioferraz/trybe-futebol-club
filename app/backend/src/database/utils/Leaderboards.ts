@@ -1,5 +1,6 @@
 import Match from '../models/Match';
 import Club from '../models/Club';
+import { ILeaderboard } from '../interfaces';
 
 export default class Leaderboards {
   // ref https://sequelize.org/v5/manual/models-usage.html#-code-count--code----count-the-occurrences-of-elements-in-the-database
@@ -55,4 +56,19 @@ export default class Leaderboards {
     +((await this.getTotalPoints(club)
       / (await this.getTotalGames(club) * 3))
       * 100).toFixed(2);
+
+  public static sortLeaderboard = (leaderboard: ILeaderboard[]): ILeaderboard[] =>
+    leaderboard.sort((a, b) => {
+      if (a.totalPoints < b.totalPoints) return 1;
+      if (a.totalPoints > b.totalPoints) return -1;
+      if (a.totalVictories < b.totalVictories) return 1;
+      if (a.totalVictories > b.totalVictories) return -1;
+      if (a.goalsBalance < b.goalsBalance) return 1;
+      if (a.goalsBalance > b.goalsBalance) return -1;
+      if (a.goalsFavor < b.goalsFavor) return 1;
+      if (a.goalsFavor > b.goalsFavor) return -1;
+      if (a.goalsOwn < b.goalsOwn) return 1;
+      if (a.goalsOwn > b.goalsOwn) return -1;
+      return 0;
+    });
 }

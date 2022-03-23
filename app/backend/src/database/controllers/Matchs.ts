@@ -11,7 +11,6 @@ export default class MatchsController {
 
       return res.status(StatusCode.OK).json(matchs);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -24,7 +23,6 @@ export default class MatchsController {
 
       return res.status(StatusCode.CREATED).json(match);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -36,7 +34,6 @@ export default class MatchsController {
 
       return res.status(StatusCode.OK).json({ message: 'Finish' });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -48,7 +45,6 @@ export default class MatchsController {
 
       return res.status(StatusCode.OK).json(match);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

@@ -1,4 +1,3 @@
-// import { IError, StatusCode } from '../interfaces';
 import { IMatch, StatusCode } from '../interfaces';
 import Club from '../models/Club';
 import Match from '../models/Match';
