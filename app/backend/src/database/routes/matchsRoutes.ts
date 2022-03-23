@@ -1,5 +1,6 @@
 import { Application } from 'express';
 import MatchsController from '../controllers/Matchs';
+import Middlewares from '../middlewares';
 import CommonRoutesConfig from './common.routes.config';
 
 export default class MatchsRoutes extends CommonRoutesConfig {
@@ -11,7 +12,7 @@ export default class MatchsRoutes extends CommonRoutesConfig {
   configureRoutes(): Application {
     this.app
       .get('/matchs', MatchsController.getAll)
-      .post('/matchs', MatchsController.create)
+      .post('/matchs', Middlewares.checkEqualTeams, MatchsController.create)
       .patch('/matchs/:id', MatchsController.updateMatch)
       .patch('/matchs/:id/finish', MatchsController.finishMatch);
 

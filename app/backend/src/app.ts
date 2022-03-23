@@ -1,10 +1,10 @@
 import * as express from 'express';
 import * as cors from 'cors';
-import midError from './database/middlewares/error';
 import ClubsRoutes from './database/routes/clubsRoutes';
 import CommonRoutesConfig from './database/routes/common.routes.config';
 import LoginRoutes from './database/routes/loginRoutes';
 import MatchsRoutes from './database/routes/matchsRoutes';
+import Middlewares from './database/middlewares';
 
 class App {
   public app: express.Express;
@@ -22,7 +22,7 @@ class App {
       .concat(new ClubsRoutes(this.app))
       .concat(new MatchsRoutes(this.app));
 
-    this.app.use(midError);
+    this.app.use(Middlewares.error);
     // ...
   }
 

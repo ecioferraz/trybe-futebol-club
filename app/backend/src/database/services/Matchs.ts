@@ -18,13 +18,6 @@ export default class MatchsService {
   }
 
   public static async create(match: IMatch) {
-    if (match.awayTeam === match.homeTeam) {
-      return {
-        code: StatusCode.UNAUTHORIZED,
-        message: 'It is not possible to create a match with two equal teams',
-      };
-    }
-
     const isNotATeam = await this.checkTeam(match);
 
     if (isNotATeam) {
@@ -56,7 +49,7 @@ export default class MatchsService {
     await Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
 
     const updated = await Match.findByPk(id);
-    console.log(updated);
+
     return updated;
   }
 }

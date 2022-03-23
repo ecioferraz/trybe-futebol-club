@@ -1,8 +1,8 @@
 import { Application } from 'express';
 import LoginController from '../controllers/Login';
 import CommonRoutesConfig from './common.routes.config';
-import { validateLogin } from '../middlewares';
 import { authToken } from '../auth/jwt';
+import Middlewares from '../middlewares';
 
 export default class LoginRoutes extends CommonRoutesConfig {
   constructor(app: Application) {
@@ -12,7 +12,7 @@ export default class LoginRoutes extends CommonRoutesConfig {
 
   configureRoutes(): Application {
     this.app
-      .post('/login', validateLogin, LoginController.login)
+      .post('/login', Middlewares.validateLogin, LoginController.login)
       .get('/login/validate', authToken, LoginController.getRole);
 
     return this.app;
