@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import ClubsController from '../controllers/Clubs';
+import LeaderboardController from '../controllers/Leaderboard';
 import CommonRoutesConfig from './common.routes.config';
 
 export default class LeaderboardsRoutes extends CommonRoutesConfig {
@@ -9,7 +9,7 @@ export default class LeaderboardsRoutes extends CommonRoutesConfig {
   }
 
   configureRoutes(): Application {
-    this.app.get('/leaderboard/home', ClubsController.getAll);
+    this.app.get('/leaderboard/home', LeaderboardController.getAll);
 
     return this.app;
   }
