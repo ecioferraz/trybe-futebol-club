@@ -14,7 +14,6 @@ export default class LoginController {
 
       return res.status(StatusCode.OK).json(user);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -27,7 +26,6 @@ export default class LoginController {
 
       return res.status(StatusCode.OK).json(role);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

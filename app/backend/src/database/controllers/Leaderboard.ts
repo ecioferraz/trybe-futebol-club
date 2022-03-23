@@ -9,7 +9,6 @@ export default class LeaderboardController {
 
       return res.status(StatusCode.OK).json(leaderboard);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   };
