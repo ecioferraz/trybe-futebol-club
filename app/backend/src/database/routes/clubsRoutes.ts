@@ -8,11 +8,11 @@ export default class ClubsRoutes extends CommonRoutesConfig {
     this.configureRoutes();
   }
 
-  public configureRoutes = (): Application => {
+  configureRoutes(): Application {
     this.app
       .get('/clubs', ClubsController.getAll)
       .get('/clubs/:id', ClubsController.getById);
 
     return this.app;
-  };
+  }
 }

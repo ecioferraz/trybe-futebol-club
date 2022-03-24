@@ -3,7 +3,7 @@ import { StatusCode } from '../interfaces';
 import LeaderboardService from '../services/Leaderboard';
 
 export default class LeaderboardController {
-  public static getAll = async (req: Request, res: Response, next: NextFunction) => {
+  public static async getAll(req: Request, res: Response, next: NextFunction) {
     const { path } = req;
     const awayOrHome: boolean = ['away', 'home'].includes(path.slice(-4));
     const pathTo = (awayOrHome && path.slice(-4) === 'away') ? 'away' : 'home';
@@ -16,5 +16,5 @@ export default class LeaderboardController {
     } catch (error) {
       next(error);
     }
-  };
+  }
 }

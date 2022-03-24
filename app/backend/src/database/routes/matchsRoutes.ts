@@ -9,7 +9,7 @@ export default class MatchsRoutes extends CommonRoutesConfig {
     this.configureRoutes();
   }
 
-  public configureRoutes = (): Application => {
+  configureRoutes(): Application {
     this.app
       .get('/matchs', MatchsController.getAll)
       .post('/matchs', Middlewares.checkEqualTeams, MatchsController.create)
@@ -17,5 +17,5 @@ export default class MatchsRoutes extends CommonRoutesConfig {
       .patch('/matchs/:id/finish', MatchsController.finishMatch);
 
     return this.app;
-  };
+  }
 }

@@ -3,7 +3,7 @@ import { StatusCode } from '../interfaces';
 import MatchsService from '../services/Matchs';
 
 export default class MatchsController {
-  public static getAll = async (req: Request, res: Response, next: NextFunction) => {
+  public static async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const query = req.query.inProgress as string;
 
@@ -13,9 +13,9 @@ export default class MatchsController {
     } catch (error) {
       next(error);
     }
-  };
+  }
 
-  public static create = async (req: Request, res: Response, next: NextFunction) => {
+  public static async create(req: Request, res: Response, next: NextFunction) {
     try {
       const match = await MatchsService.create(req.body);
 
@@ -25,9 +25,9 @@ export default class MatchsController {
     } catch (error) {
       next(error);
     }
-  };
+  }
 
-  public static finishMatch = async (req: Request, res: Response, next: NextFunction) => {
+  public static async finishMatch(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
       await MatchsService.finishMatch(+id);
@@ -36,9 +36,9 @@ export default class MatchsController {
     } catch (error) {
       next(error);
     }
-  };
+  }
 
-  public static updateMatch = async (req: Request, res: Response, next: NextFunction) => {
+  public static async updateMatch(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
       const match = await MatchsService.updateMatch(+id, req.body);
@@ -47,5 +47,5 @@ export default class MatchsController {
     } catch (error) {
       next(error);
     }
-  };
+  }
 }

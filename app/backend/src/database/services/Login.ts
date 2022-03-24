@@ -7,7 +7,7 @@ import User from '../models/User';
 import IVerified from '../interfaces/Verified';
 
 export default class LoginService {
-  public static login = async ({ email, password }: ILogin) => {
+  public static async login({ email, password }: ILogin) {
     const foundUser = await User.findOne({ where: { email } });
 
     if (!foundUser) {
@@ -28,11 +28,11 @@ export default class LoginService {
     const token = createToken(user);
 
     return { user, token };
-  };
+  }
 
-  public static getRole = (token: string): string => {
+  public static getRole(token: string): string {
     const { role } = jwt.verify(token, jwtSecret) as IVerified;
 
     return role;
-  };
+  }
 }

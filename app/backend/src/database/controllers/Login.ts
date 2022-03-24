@@ -4,7 +4,7 @@ import ILogin from '../interfaces/Login';
 import LoginService from '../services/Login';
 
 export default class LoginController {
-  public static login = async (req: Request, res: Response, next: NextFunction) => {
+  public static async login(req: Request, res: Response, next: NextFunction) {
     try {
       const userInfo: ILogin = req.body;
 
@@ -16,9 +16,9 @@ export default class LoginController {
     } catch (error) {
       next(error);
     }
-  };
+  }
 
-  public static getRole = (req: Request, res: Response, next: NextFunction) => {
+  public static getRole(req: Request, res: Response, next: NextFunction) {
     try {
       const token = req.headers.authorization as string;
 
@@ -28,5 +28,5 @@ export default class LoginController {
     } catch (error) {
       next(error);
     }
-  };
+  }
 }

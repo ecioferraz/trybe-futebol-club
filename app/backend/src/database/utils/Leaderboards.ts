@@ -5,7 +5,7 @@ import { ILeaderboard } from '../interfaces';
 export default class Leaderboards {
   // ref https://sequelize.org/v5/manual/models-usage.html#-code-count--code----count-the-occurrences-of-elements-in-the-database
 
-  public static getTotalGames = async (club: Club, pathTo?: string): Promise<number> => {
+  public static async getTotalGames(club: Club, pathTo?: string): Promise<number> {
     const awayCount = await Match.count({ where: { awayTeam: club.id, inProgress: false } });
     const homeCount = await Match.count({ where: { homeTeam: club.id, inProgress: false } });
 
@@ -13,9 +13,9 @@ export default class Leaderboards {
     if (pathTo === 'home') return homeCount;
 
     return awayCount + homeCount;
-  };
+  }
 
-  public static getGoalsFavor = async (club: Club, pathTo?: string): Promise<number> => {
+  public static async getGoalsFavor(club: Club, pathTo?: string): Promise<number> {
     const awayFavorGoals = await Match.sum('awayTeamGoals', {
       where: { awayTeam: club.id, inProgress: false },
     });
@@ -27,9 +27,9 @@ export default class Leaderboards {
     if (pathTo === 'home') return homeFavorGoals;
 
     return awayFavorGoals + homeFavorGoals;
-  };
+  }
 
-  public static getGoalsOwn = async (club: Club, pathTo?: string): Promise<number> => {
+  public static async getGoalsOwn(club: Club, pathTo?: string): Promise<number> {
     const awayOwnGoals = await Match.sum('homeTeamGoals', {
       where: { awayTeam: club.id, inProgress: false },
     });
@@ -41,12 +41,13 @@ export default class Leaderboards {
     if (pathTo === 'home') return homeOwnGoals;
 
     return awayOwnGoals + homeOwnGoals;
-  };
+  }
 
-  public static getGoalsBalance = async (club: Club, pathTo?: string): Promise<number> =>
-    await this.getGoalsFavor(club, pathTo) - await this.getGoalsOwn(club, pathTo);
+  public static async getGoalsBalance(club: Club, pathTo?: string): Promise<number> {
+    return await this.getGoalsFavor(club, pathTo) - await this.getGoalsOwn(club, pathTo);
+  }
 
-  private static getMatchGoals = async (club: Club, pathTo?: string): Promise<Match[]> => {
+  private static async getMatchGoals(club: Club, pathTo?: string): Promise<Match[]> {
     const awayMatchGoals = await Match.findAll({
       where: { awayTeam: club.id, inProgress: false },
       attributes: ['homeTeamGoals', 'awayTeamGoals'],
@@ -61,9 +62,9 @@ export default class Leaderboards {
     if (pathTo === 'home') return homeMatchGoals;
 
     return [...awayMatchGoals, ...homeMatchGoals];
-  };
+  }
 
-  public static getVictories = async (club: Club, pathTo?: string): Promise<number> => {
+  public static async getVictories(club: Club, pathTo?: string): Promise<number> {
     const matchGoals = await this.getMatchGoals(club, pathTo);
 
     const awayVictories = matchGoals.reduce((acc, match) => {
@@ -80,9 +81,9 @@ export default class Leaderboards {
     if (pathTo === 'home') return homeVictories;
 
     return awayVictories + homeVictories;
-  };
+  }
 
-  public static getLosses = async (club: Club, pathTo?: string): Promise<number> => {
+  public static async getLosses(club: Club, pathTo?: string): Promise<number> {
     const matchGoals = await this.getMatchGoals(club, pathTo);
 
     const awayLosses = matchGoals.reduce((acc, match) => {
@@ -99,27 +100,29 @@ export default class Leaderboards {
     if (pathTo === 'home') return homeLosses;
 
     return awayLosses + homeLosses;
-  };
+  }
 
-  public static getDraws = async (club: Club, pathTo?: string): Promise<number> => {
+  public static async getDraws(club: Club, pathTo?: string): Promise<number> {
     const matchGoals = await this.getMatchGoals(club, pathTo);
 
     return matchGoals.reduce((acc, match) => {
       if (match.homeTeamGoals === match.awayTeamGoals) return acc + 1;
       return acc;
     }, 0);
-  };
+  }
 
-  public static getTotalPoints = async (club: Club, pathTo?: string): Promise<number> =>
-    (await this.getVictories(club, pathTo) * 3) + await this.getDraws(club, pathTo);
+  public static async getTotalPoints(club: Club, pathTo?: string): Promise<number> {
+    return (await this.getVictories(club, pathTo) * 3) + await this.getDraws(club, pathTo);
+  }
 
-  public static getEfficiency = async (club: Club, pathTo?: string) =>
-    +((await this.getTotalPoints(club, pathTo)
+  public static async getEfficiency(club: Club, pathTo?: string) {
+    return +((await this.getTotalPoints(club, pathTo)
       / (await this.getTotalGames(club, pathTo) * 3))
       * 100).toFixed(2);
+  }
 
-  public static sortLeaderboard = (leaderboard: ILeaderboard[]): ILeaderboard[] =>
-    leaderboard.sort((a, b) => {
+  public static sortLeaderboard(leaderboard: ILeaderboard[]): ILeaderboard[] {
+    return leaderboard.sort((a, b) => {
       if (a.totalPoints < b.totalPoints) return 1;
       if (a.totalPoints > b.totalPoints) return -1;
       if (a.totalVictories < b.totalVictories) return 1;
@@ -132,4 +135,5 @@ export default class Leaderboards {
       if (a.goalsOwn > b.goalsOwn) return -1;
       return 0;
     });
+  }
 }

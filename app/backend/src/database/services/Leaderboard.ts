@@ -3,7 +3,7 @@ import Club from '../models/Club';
 import Leaderboards from '../utils/Leaderboards';
 
 export default class LeaderboardService {
-  public static getAll = async (pathTo?: string): Promise<ILeaderboard[]> => {
+  public static async getAll(pathTo?: string): Promise<ILeaderboard[]> {
     const clubs = await Club.findAll();
 
     const leaderboard = await Promise.all(clubs.map(async (club) => ({
@@ -20,5 +20,5 @@ export default class LeaderboardService {
     })));
 
     return Leaderboards.sortLeaderboard(leaderboard);
-  };
+  }
 }
