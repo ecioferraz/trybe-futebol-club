@@ -3,20 +3,20 @@ import Club from '../models/Club';
 import Leaderboards from '../utils/Leaderboards';
 
 export default class LeaderboardService {
-  public static getAll = async (): Promise<ILeaderboard[]> => {
+  public static getAll = async (away?: string): Promise<ILeaderboard[]> => {
     const clubs = await Club.findAll();
 
     const leaderboard = await Promise.all(clubs.map(async (club) => ({
       name: club.clubName,
-      totalPoints: await Leaderboards.getTotalPoints(club),
-      totalGames: await Leaderboards.getTotalGames(club),
-      totalVictories: await Leaderboards.getTotalVictories(club),
-      totalDraws: await Leaderboards.getDraws(club),
-      totalLosses: await Leaderboards.getLosses(club),
-      goalsFavor: await Leaderboards.getGoalsFavor(club),
-      goalsOwn: await Leaderboards.getGoalsOwn(club),
-      goalsBalance: await Leaderboards.getGoalsBalance(club),
-      efficiency: await Leaderboards.getEfficiency(club),
+      totalPoints: await Leaderboards.getTotalPoints(club, away),
+      totalGames: await Leaderboards.getTotalGames(club, away),
+      totalVictories: await Leaderboards.getTotalVictories(club, away),
+      totalDraws: await Leaderboards.getDraws(club, away),
+      totalLosses: await Leaderboards.getLosses(club, away),
+      goalsFavor: await Leaderboards.getGoalsFavor(club, away),
+      goalsOwn: await Leaderboards.getGoalsOwn(club, away),
+      goalsBalance: await Leaderboards.getGoalsBalance(club, away),
+      efficiency: await Leaderboards.getEfficiency(club, away),
     })));
 
     return Leaderboards.sortLeaderboard(leaderboard);

@@ -10,37 +10,13 @@ export default class Middlewares {
     res.status(status).json({ message });
   };
 
-  private static validateEmail = (email: string): IError | boolean => {
-    switch (true) {
-      case Helpers.blank(email): return {
-        code: StatusCode.UNAUTHORIZED,
-        message: 'All fields must be filled',
-      };
-      case Helpers.checkEmail(email): return {
-        code: StatusCode.UNAUTHORIZED,
-        message: 'Incorrect email or password',
-      };
-      default: return false;
-    }
-  };
-
-  private static validatePassword = (password: string): IError | boolean => {
-    switch (true) {
-      case Helpers.blank(password): return {
-        code: StatusCode.UNAUTHORIZED,
-        message: 'All fields must be filled',
-      };
-      default: return false;
-    }
-  };
-
   public static validateLogin = (req: Request, _res: Response, next: NextFunction) => {
     const { email, password }: ILogin = req.body;
 
-    const validEmail = this.validateEmail(email);
+    const validEmail = Helpers.validateEmail(email);
     if (validEmail) return next(validEmail);
 
-    const validPassword = this.validatePassword(password);
+    const validPassword = Helpers.validatePassword(password);
     if (validPassword) return next(validPassword);
 
     next();
