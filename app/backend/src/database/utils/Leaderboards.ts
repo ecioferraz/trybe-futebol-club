@@ -78,7 +78,6 @@ export default class Leaderboards {
 
     if (pathTo === 'away') return awayVictories;
     if (pathTo === 'home') return homeVictories;
-    console.log('awayVictories', awayVictories);
 
     return awayVictories + homeVictories;
   };
