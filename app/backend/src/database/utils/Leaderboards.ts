@@ -59,11 +59,11 @@ export default class Leaderboards {
 
     if (pathTo === 'away') return awayMatchGoals;
     if (pathTo === 'home') return homeMatchGoals;
-
-    return [...awayMatchGoals, ...homeMatchGoals];
+    console.log(awayMatchGoals);
+    return awayMatchGoals.concat(homeMatchGoals);
   };
 
-  public static getTotalVictories = async (club: Club, pathTo?: string): Promise<number> => {
+  public static getVictories = async (club: Club, pathTo?: string): Promise<number> => {
     const matchGoals = await this.getMatchGoals(club, pathTo);
 
     const awayVictories = matchGoals.reduce((acc, match) => {
@@ -111,7 +111,7 @@ export default class Leaderboards {
   };
 
   public static getTotalPoints = async (club: Club, pathTo?: string): Promise<number> =>
-    (await this.getTotalVictories(club, pathTo) * 3) + await this.getDraws(club, pathTo);
+    (await this.getVictories(club, pathTo) * 3) + await this.getDraws(club, pathTo);
 
   public static getEfficiency = async (club: Club, pathTo?: string) =>
     +((await this.getTotalPoints(club, pathTo)

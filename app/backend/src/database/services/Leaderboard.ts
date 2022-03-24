@@ -10,7 +10,7 @@ export default class LeaderboardService {
       name: club.clubName,
       totalPoints: await Leaderboards.getTotalPoints(club, pathTo),
       totalGames: await Leaderboards.getTotalGames(club, pathTo),
-      totalVictories: await Leaderboards.getTotalVictories(club, pathTo),
+      totalVictories: await Leaderboards.getVictories(club, pathTo),
       totalDraws: await Leaderboards.getDraws(club, pathTo),
       totalLosses: await Leaderboards.getLosses(club, pathTo),
       goalsFavor: await Leaderboards.getGoalsFavor(club, pathTo),
