@@ -59,8 +59,8 @@ export default class Leaderboards {
 
     if (pathTo === 'away') return awayMatchGoals;
     if (pathTo === 'home') return homeMatchGoals;
-    console.log(awayMatchGoals);
-    return awayMatchGoals.concat(homeMatchGoals);
+
+    return [...awayMatchGoals, ...homeMatchGoals];
   };
 
   public static getVictories = async (club: Club, pathTo?: string): Promise<number> => {
