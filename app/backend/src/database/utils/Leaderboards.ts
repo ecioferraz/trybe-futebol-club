@@ -46,7 +46,7 @@ export default class Leaderboards {
   public static getGoalsBalance = async (club: Club, pathTo?: string): Promise<number> =>
     await this.getGoalsFavor(club, pathTo) - await this.getGoalsOwn(club, pathTo);
 
-  private static getMatchGoals = async (club: Club, pathTo?: string) => {
+  private static getMatchGoals = async (club: Club, pathTo?: string): Promise<Match[]> => {
     const awayMatchGoals = await Match.findAll({
       where: { awayTeam: club.id, inProgress: false },
       attributes: ['homeTeamGoals', 'awayTeamGoals'],

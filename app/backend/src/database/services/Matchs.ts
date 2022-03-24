@@ -3,7 +3,7 @@ import Club from '../models/Club';
 import Match from '../models/Match';
 
 export default class MatchsService {
-  public static async getAll(inProgress: string): Promise<Match[]> {
+  public static getAll = async (inProgress: string): Promise<Match[]> => {
     let where;
 
     if (inProgress === 'false') where = { inProgress: false };
@@ -14,9 +14,9 @@ export default class MatchsService {
       { model: Club, as: 'awayClub', attributes: ['clubName'] },
     ],
     where });
-  }
+  };
 
-  public static async create(match: IMatch) {
+  public static create = async (match: IMatch) => {
     const isNotATeam = await this.checkTeam(match);
 
     if (isNotATeam) {
@@ -26,29 +26,29 @@ export default class MatchsService {
     const { id } = await Match.create(match);
 
     return { id, ...match };
-  }
+  };
 
-  public static async finishMatch(id: number): Promise<void> {
+  public static finishMatch = async (id: number): Promise<void> => {
     await Match.update({ inProgress: false }, { where: { id } });
-  }
+  };
 
-  private static async checkTeam({ awayTeam, homeTeam }: IMatch): Promise<boolean> {
+  private static checkTeam = async ({ awayTeam, homeTeam }: IMatch): Promise<boolean> => {
     const away = await Club.findByPk(awayTeam);
     const home = await Club.findByPk(homeTeam);
 
     if (!away || !home) return true;
 
     return false;
-  }
+  };
 
-  public static async updateMatch(
+  public static updateMatch = async (
     id: number,
     { homeTeamGoals, awayTeamGoals }: IMatch,
-  ) {
+  ) => {
     await Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
 
     const updated = await Match.findByPk(id);
 
     return updated;
-  }
+  };
 }

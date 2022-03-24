@@ -8,12 +8,12 @@ export default class LeaderboardsRoutes extends CommonRoutesConfig {
     this.configureRoutes();
   }
 
-  configureRoutes(): Application {
+  public configureRoutes = (): Application => {
     this.app
       .get('/leaderboard', LeaderboardController.getAll)
       .get('/leaderboard/home', LeaderboardController.getAll)
       .get('/leaderboard/away', LeaderboardController.getAll);
 
     return this.app;
-  }
+  };
 }
