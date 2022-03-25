@@ -47,75 +47,100 @@ export default class Leaderboards {
     return await this.getGoalsFavor(club, pathTo) - await this.getGoalsOwn(club, pathTo);
   }
 
-  private static async getMatchGoals(club: Club, pathTo?: string): Promise<Match[]> {
-    const awayMatchGoals = await Match.findAll({
+  private static async getAwayMatchGoals(club: Club): Promise<Match[]> {
+    return Match.findAll({
       where: { awayTeam: club.id, inProgress: false },
       attributes: ['homeTeamGoals', 'awayTeamGoals'],
     });
+  }
 
-    const homeMatchGoals = await Match.findAll({
+  private static async getHomeMatchGoals(club: Club): Promise<Match[]> {
+    return Match.findAll({
       where: { homeTeam: club.id, inProgress: false },
       attributes: ['homeTeamGoals', 'awayTeamGoals'],
     });
+  }
 
-    if (pathTo === 'away') return awayMatchGoals;
-    if (pathTo === 'home') return homeMatchGoals;
+  private static async getAwayVictories(club: Club): Promise<number> {
+    const awayMatchGoals = await this.getAwayMatchGoals(club);
 
-    return [...awayMatchGoals, ...homeMatchGoals];
+    return awayMatchGoals.reduce((acc, match) => {
+      if (match.homeTeamGoals < match.awayTeamGoals) return acc + 1;
+      return acc;
+    }, 0);
+  }
+
+  private static async getHomeVictories(club: Club): Promise<number> {
+    const homeMatchGoals = await this.getHomeMatchGoals(club);
+
+    return homeMatchGoals.reduce((acc, match) => {
+      if (match.homeTeamGoals > match.awayTeamGoals) return acc + 1;
+      return acc;
+    }, 0);
   }
 
   public static async getVictories(club: Club, pathTo?: string): Promise<number> {
-    const matchGoals = await this.getMatchGoals(club, pathTo);
+    if (pathTo === 'away') return this.getAwayVictories(club);
+    if (pathTo === 'home') return this.getHomeVictories(club);
 
-    const awayVictories = matchGoals.reduce((acc, match) => {
-      if (match.homeTeamGoals < match.awayTeamGoals) return acc + 1;
-      return acc;
-    }, 0);
+    return (await this.getAwayVictories(club) + await this.getHomeVictories(club));
+  }
 
-    const homeVictories = matchGoals.reduce((acc, match) => {
+  private static async getAwayLosses(club: Club): Promise<number> {
+    const awayMatchGoals = await this.getAwayMatchGoals(club);
+
+    return awayMatchGoals.reduce((acc, match) => {
       if (match.homeTeamGoals > match.awayTeamGoals) return acc + 1;
       return acc;
     }, 0);
+  }
 
-    if (pathTo === 'away') return awayVictories;
-    if (pathTo === 'home') return homeVictories;
+  private static async getHomeLosses(club: Club): Promise<number> {
+    const homeMatchGoals = await this.getHomeMatchGoals(club);
 
-    return awayVictories + homeVictories;
+    return homeMatchGoals.reduce((acc, match) => {
+      if (match.homeTeamGoals < match.awayTeamGoals) return acc + 1;
+      return acc;
+    }, 0);
   }
 
   public static async getLosses(club: Club, pathTo?: string): Promise<number> {
-    const matchGoals = await this.getMatchGoals(club, pathTo);
+    if (pathTo === 'away') return this.getAwayLosses(club);
+    if (pathTo === 'home') return this.getHomeLosses(club);
 
-    const awayLosses = matchGoals.reduce((acc, match) => {
-      if (match.homeTeamGoals > match.awayTeamGoals) return acc + 1;
-      return acc;
-    }, 0);
-
-    const homeLosses = matchGoals.reduce((acc, match) => {
-      if (match.homeTeamGoals < match.awayTeamGoals) return acc + 1;
-      return acc;
-    }, 0);
-
-    if (pathTo === 'away') return awayLosses;
-    if (pathTo === 'home') return homeLosses;
-
-    return awayLosses + homeLosses;
+    return (await this.getAwayLosses(club) + await this.getHomeLosses(club));
   }
 
-  public static async getDraws(club: Club, pathTo?: string): Promise<number> {
-    const matchGoals = await this.getMatchGoals(club, pathTo);
+  private static async getAwayDraws(club: Club): Promise<number> {
+    const awayMatchGoals = await this.getAwayMatchGoals(club);
 
-    return matchGoals.reduce((acc, match) => {
+    return awayMatchGoals.reduce((acc, match) => {
       if (match.homeTeamGoals === match.awayTeamGoals) return acc + 1;
       return acc;
     }, 0);
+  }
+
+  private static async getHomeDraws(club: Club): Promise<number> {
+    const homeMatchGoals = await this.getHomeMatchGoals(club);
+
+    return homeMatchGoals.reduce((acc, match) => {
+      if (match.homeTeamGoals === match.awayTeamGoals) return acc + 1;
+      return acc;
+    }, 0);
+  }
+
+  public static async getDraws(club: Club, pathTo?: string): Promise<number> {
+    if (pathTo === 'away') return this.getAwayDraws(club);
+    if (pathTo === 'home') return this.getHomeDraws(club);
+
+    return (await this.getAwayDraws(club) + await this.getHomeDraws(club));
   }
 
   public static async getTotalPoints(club: Club, pathTo?: string): Promise<number> {
     return (await this.getVictories(club, pathTo) * 3) + await this.getDraws(club, pathTo);
   }
 
-  public static async getEfficiency(club: Club, pathTo?: string) {
+  public static async getEfficiency(club: Club, pathTo?: string): Promise<number> {
     return +((await this.getTotalPoints(club, pathTo)
       / (await this.getTotalGames(club, pathTo) * 3))
       * 100).toFixed(2);
