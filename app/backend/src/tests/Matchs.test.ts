@@ -129,7 +129,7 @@ const { expect } = chai;
        expect(chaiHttpResponse).to.have.status(200);
     });
 
-    it('Should return "Finish" message', async () => {
+    it('Should return the updated match', async () => {
         chaiHttpResponse = await chai
          .request(app)
          .patch('/matchs/1');
