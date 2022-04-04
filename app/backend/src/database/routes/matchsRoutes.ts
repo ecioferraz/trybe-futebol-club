@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import MatchsController from '../controllers/Matchs';
+import MatchsController from '../controllers/MatchsController';
 import Middlewares from '../middlewares';
 import CommonRoutesConfig from './common.routes.config';
 

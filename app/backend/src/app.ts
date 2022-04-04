@@ -5,7 +5,7 @@ import CommonRoutesConfig from './database/routes/common.routes.config';
 import LoginRoutes from './database/routes/loginRoutes';
 import MatchsRoutes from './database/routes/matchsRoutes';
 import Middlewares from './database/middlewares';
-import LeaderboardsRoutes from './database/routes/leaderboardRoutes';
+import LeaderboardRoutes from './database/routes/leaderboardRoutes';
 
 class App {
   public app: express.Express;
@@ -22,7 +22,7 @@ class App {
       .concat(new LoginRoutes(this.app))
       .concat(new ClubsRoutes(this.app))
       .concat(new MatchsRoutes(this.app))
-      .concat(new LeaderboardsRoutes(this.app));
+      .concat(new LeaderboardRoutes(this.app));
 
     this.app.use(Middlewares.error);
     // ...

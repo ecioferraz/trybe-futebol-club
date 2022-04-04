@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCode } from '../interfaces';
-import MatchsService from '../services/Matchs';
+import MatchsService from '../services/MatchsService';
 
 export default class MatchsController {
   public static async getAll(req: Request, res: Response, next: NextFunction) {

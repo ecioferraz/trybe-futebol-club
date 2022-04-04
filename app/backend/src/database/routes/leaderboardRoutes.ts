@@ -1,8 +1,8 @@
 import { Application } from 'express';
-import LeaderboardController from '../controllers/Leaderboard';
+import LeaderboardController from '../controllers/LeaderboardController';
 import CommonRoutesConfig from './common.routes.config';
 
-export default class LeaderboardsRoutes extends CommonRoutesConfig {
+export default class LeaderboardRoutes extends CommonRoutesConfig {
   constructor(app: Application) {
     super(app);
     this.configureRoutes();

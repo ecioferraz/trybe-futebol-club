@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import LoginController from '../controllers/Login';
+import LoginController from '../controllers/LoginController';
 import CommonRoutesConfig from './common.routes.config';
 import { authToken } from '../auth/jwt';
 import Middlewares from '../middlewares';

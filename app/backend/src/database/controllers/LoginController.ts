@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCode } from '../interfaces';
 import ILogin from '../interfaces/Login';
-import LoginService from '../services/Login';
+import LoginService from '../services/LoginService';
 
 export default class LoginController {
   public static async login(req: Request, res: Response, next: NextFunction) {

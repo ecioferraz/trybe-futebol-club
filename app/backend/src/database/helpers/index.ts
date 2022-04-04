@@ -1,15 +1,11 @@
 import { IError, StatusCode } from '../interfaces';
 
 export default class Helpers {
-  public static blank(value: string): boolean {
+  private static blank(value: string): boolean {
     return !value;
   }
 
-  public static lengthIsLessThan(value: string, maxLength: number): boolean {
-    return value.length < maxLength;
-  }
-
-  public static checkEmail(email: string): boolean {
+  private static checkEmail(email: string): boolean {
     return !(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w\w+)+$/.test(email));
   }
 
@@ -28,12 +24,11 @@ export default class Helpers {
   }
 
   public static validatePassword(password: string): IError | boolean {
-    switch (true) {
-      case this.blank(password): return {
+    if (this.blank(password)) return {
         code: StatusCode.UNAUTHORIZED,
         message: 'All fields must be filled',
       };
-      default: return false;
-    }
+
+    return false;
   }
 }

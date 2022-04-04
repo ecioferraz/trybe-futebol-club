@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCode } from '../interfaces';
-import ClubsService from '../services/Clubs';
+import ClubsService from '../services/ClubsService';
 
 export default class ClubsController {
   public static async getAll(_req: Request, res: Response, next: NextFunction) {

@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import ClubsController from '../controllers/Clubs';
+import ClubsController from '../controllers/ClubsController';
 import CommonRoutesConfig from './common.routes.config';
 
 export default class ClubsRoutes extends CommonRoutesConfig {

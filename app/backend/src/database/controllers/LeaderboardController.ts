@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCode } from '../interfaces';
-import LeaderboardService from '../services/Leaderboard';
+import LeaderboardService from '../services/LeaderboardService';
 
 export default class LeaderboardController {
   public static async getAll(req: Request, res: Response, next: NextFunction) {
