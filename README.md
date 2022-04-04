@@ -8,4 +8,4 @@ O Front-end foi pré-desenvolvido pela equipe da Trybe, meu foco foi totalmente 
 
 #### Linguagens utilizadas
 
-Essa aplicação foi desenvolvida em Node.js, Typescript, Express e Sequelize, desenvolvendo os conceitos de POO (Programação Orientada a Objetos) aprendidas no último módulo. Os testes foram desenvolvidos utilizando Mocha, Chai e Sinon.
+Essa aplicação foi desenvolvida em Node.js, Typescript, Express e Sequelize, desenvolvendo os conceitos de POO (Programação Orientada a Objetos) aprendidas no módulo de Back-end. Os testes foram desenvolvidos utilizando Mocha, Chai e Sinon.
