@@ -11,8 +11,10 @@ class App {
   public app: express.Express;
 
   public routes: Array<CommonRoutesConfig> = [];
+  // ...
 
   constructor() {
+    // ...
     this.app = express();
     this.config();
 
@@ -23,6 +25,7 @@ class App {
       .concat(new LeaderboardsRoutes(this.app));
 
     this.app.use(Middlewares.error);
+    // ...
   }
 
   private config():void {
@@ -36,8 +39,10 @@ class App {
     this.app.use(accessControl);
     this.app.use(express.json());
     this.app.use(cors());
+    // ...
   }
 
+  // ...
   public start(PORT: string | number): void {
     this.app.listen(PORT, () => console.log(`App listening at port ${PORT}!`));
   }
